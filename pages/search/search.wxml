@@ -1,0 +1,28 @@
+<!--输入框-->
+<view class="search">
+  <image src="../../images/search.png" id="serachicon"></image>
+  <input id="searchinput" bindinput="serachbook_name" type="text" placeholder="输入您感兴趣的内容"/>
+  <button id="searchbtn" bindtap="search" style="width: 50px;padding: 0;">搜索</button>
+  <!-- <input type="button" class="searchbtn" bindtap="search" name="搜索"/> -->
+</view>
+
+<!-- 查询结果 -->
+<view wx:for="{{booksArray}}" id="aBook+{{index}}" bindtap="toBook">
+
+  <view>
+    <!-- 因为index从0开始，图片名从1开始 -->
+    <image src="https://serve.sirbook.top{{item.book_cover}}" id="head"></image>
+  </view>
+  
+  <view id="remark">
+    <view>
+      {{item.book_name}}
+    </view>
+    <view class="author">
+      作者：{{item.book_author}}
+    </view>
+    <view class="price">
+    {{item.bookA_price}}元
+    </view>
+  </view>
+</view>

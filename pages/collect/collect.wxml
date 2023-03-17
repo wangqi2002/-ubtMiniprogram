@@ -1,0 +1,12 @@
+<view style="margin-left: 20rpx;">我的收藏</view>
+<view style="color: gray">（若未及时刷新，请右上角重新进入小程序）</view>
+<view style="width: 100%; background-color: orange; height: 5px;"></view>
+  <view wx:for="{{collect_bookAs}}" id="aBook+{{index}}" bindtap="toBook">
+    <view id="remark">
+      <image src="https://serve.sirbook.top{{item.book_cover}}" style="width: 300rpx;height: 300rpx;float: left;margin:0 20rpx;"></image>
+      <view style="margin: 10rpx;">bookA_id：{{item.bookA_id}}</view>
+      <view style="margin: 20rpx;">bookA_isbn：{{item.bookA_isbn}}</view>
+      <view style="margin: 20rpx;">书名：{{item.book_name}}</view>
+    </view>
+  </view>
+

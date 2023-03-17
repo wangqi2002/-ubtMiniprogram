@@ -1,0 +1,32 @@
+我的卖书
+<view style="width: 100%; background-color: orange; height: 5px;"></view>
+<view wx:for="{{sellerOrderArray}}" id="aBook+{{index}}" bindtap="toBook">
+
+  <!-- <view>
+    因为index从0开始，图片名从1开始
+    <image src="../../images/books/{{item.sellerorder_book_isbn}}.jpg" id="head"></image>
+  </view> -->
+
+  <image src="https://serve.sirbook.top{{item.book_cover}}" style="width: 200rpx;height: 200rpx;float: left;margin:0 20rpx;"></image>
+  
+  <view id="remark">
+    <view>
+      isbn：{{item.sellerorder_book_isbn}}
+    </view>
+    <view>
+      书名：{{item.book_name}}
+    </view>
+    <view class="author">
+      卖出时间：{{item.sellerorder_date}}
+    </view>
+    <view class="address">
+      卖家地址： {{item.sellerorder_address}}
+    </view>
+    
+    <view class="status">
+      <!-- 引入过滤器 -->
+      <wxs src="/pages/filter.wxs" module="filter"/>
+      商品状态： {{filter.replaceSell(item.sellerorder_status)}} 
+    </view>
+  </view>
+</view>

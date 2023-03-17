@@ -1,0 +1,39 @@
+我的买书
+<view style="width: 100%; background-color: orange; height: 5px;"></view>
+<view wx:for="{{buyerOrderArray}}" id="aBook+{{index}}" >
+  <image src="https://serve.sirbook.top{{item.book_cover}}" style="width: 250rpx;height: 250rpx;float: left;margin:20rpx;"></image>
+  <view id="remark">
+    <view>
+      书名：{{item.book_name}}
+    </view>
+    <view>
+      卖家：{{item.buyerorder_sellerid}}
+    </view>
+    <view class="address">
+      收货地址：{{item.buyerorder_address}}
+    </view>
+    <view class="date">
+      订单日期： {{item.buyerorder_time}}
+    </view>
+    <view class="price">
+
+      购买价格：{{item.buyerorder_price}}元
+    </view>
+    <view>
+      <view class="status" style="float: left;margin-top: 10px;width: 100%;">
+      <!-- 引入过滤器 -->
+      <wxs src="/pages/filter.wxs" module="filter"/>
+        交易状态： {{filter.replaceBuy(item.buyerorder_trading_status)}} 
+      </view>
+    </view>
+
+    <!-- 修改状态按钮 -->
+      <view wx:if="{{item.buyerorder_trading_status==1}}">
+        <button id="aBook+{{index}}+checked" bindtap="checked" style="width: 120px; float: left;">确认收货</button>
+        <button id="aBook+{{index}}+refuse" bindtap="refuse" style="width: 120px;">拒收</button>
+      </view>
+      <view wx:else style="height: 40px;">
+      </view>
+    
+  </view>
+</view>

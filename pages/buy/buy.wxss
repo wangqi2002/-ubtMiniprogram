@@ -1,0 +1,32 @@
+/* page{
+  background-color: gainsboro;
+} */
+.user{
+  background-color: white;
+  border:2px solid gold;
+  height: 100px;
+  margin: 50px 0;
+}
+.goods{
+  background-color: white;
+  border:2px solid gold;
+  height: 120px;
+  margin: 50px 0;
+}
+.img{
+  width: 120px;
+  height: 120px;
+  float: left;
+  margin-right: 10px;
+}
+.title{
+  font-size: larger;
+}
+.price{
+  margin-top: 55px;
+  color: red;
+  font-size: larger;
+}
+.btn{
+  background-color: goldenrod;
+}

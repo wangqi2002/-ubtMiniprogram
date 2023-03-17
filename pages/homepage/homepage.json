@@ -1,0 +1,6 @@
+{
+    "usingComponents": {},
+    "navigationBarTitleText": "二手书交易",
+    "navigationBarTextStyle": "black",
+    "enablePullDownRefresh": true
+}

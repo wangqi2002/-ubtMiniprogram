@@ -1,0 +1,30 @@
+var filters = {
+  toFix: function (value) {
+    return value.toFixed(2)//此处2为保留两位小数
+  }
+}
+var replaceBuy = function (value) {
+  var N = ["待发货","运输中", "已签收", "拒收"];
+  var str = value.toString();
+  var len = value.toString().length;
+  var C_Num = [];
+  for (var i = 0; i < len; i++) {
+    C_Num.push(N[parseInt(str.charAt(i))]);
+  }
+  return C_Num.join("");
+}
+var replaceSell = function (value) {
+  var N = ["待收", "已收", "缺书"];
+  var str = value.toString();
+  var len = value.toString().length;
+  var C_Num = [];
+  for (var i = 0; i < len; i++) {
+    C_Num.push(N[parseInt(str.charAt(i))]);
+  }
+  return C_Num.join("");
+}
+module.exports = {
+  toFix: filters.toFix,
+  replaceSell: replaceSell,
+  replaceBuy:replaceBuy
+}

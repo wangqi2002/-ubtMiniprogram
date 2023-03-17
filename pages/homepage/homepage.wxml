@@ -1,0 +1,72 @@
+<!-- homepage首页 -->
+<view class="top_box">
+    <view class="search_box" bindtap="search">
+        <image class="search_ico" src="/images/search.png"></image>
+        <view class="search_text">搜索想要的书籍，例如：机械设计</view>
+    </view>
+    <image bindtap="changeCard" class="top_list" src="{{iscard?'/images/list.png':'/images/card.png'}}"></image>
+</view>
+<!-- <swiper class="banner" indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" circular="{{circular}}" vertical="{{vertical}}" interval="{{interval}}" duration="{{duration}}" previous-margin="{{previousMargin}}px" next-margin="{{nextMargin}}px">
+    <block wx:for="{{background}}" wx:key="*this">
+        <swiper-item>
+            <image lazy-load src="/images/{{item}}"  class="banner_image" />
+        </swiper-item>
+    </block>
+</swiper> -->
+
+<!-- 列表开关 -->
+<!-- <view class="index-bottom" wx:for="{{siteList}}" wx:for-item="h" wx:key="*this" wx:if="{{switchAllChecked}}">
+    <view class="bottom-content" wx:if="{{h.show}}">
+        <text>{{h.name}}</text>
+        <switch data-id="{{h.id}}" checked="{{h.checked}}" bindchange="switchThisChange" />
+    </view>
+</view> -->
+
+<!--分类导航-->
+<view class="{{scrollTop>310?'nofixed':''}}"></view>
+<view class="kind_contain {{scrollTop>310?'fixed':''}}">
+      <view class="nav-item {{-2==collegeCur?'tab-on':''}}" bindtap="selectAll">
+            <view class="nav-text">全部</view>
+      </view>
+
+      <scroll-view scroll-x class="nav" scroll-with-animation scroll-left="{{scrollLeft}}rpx">
+            <!-- <view class="nav-item" wx:for="{{college}}" wx:key="id" data-id="{{index}}" bindtap="collegeSelect">
+                  <view class="nav-text {{index==collegeCur+1?'tab-on':''}}">{{item.name}}</view>
+            </view> -->
+            <view class="nav-item" wx:for="{{college}}" id="aBook+{{index}}" bindtap="collegeSelect">
+                  <view class="nav-text">{{item.name}}</view>
+            </view>
+            <!-- <view class="nav-item">通用</view>
+            <view class="nav-item">计算机</view>
+            <view class="nav-item">经管</view> -->
+      </scroll-view>
+      <!-- <view class="kind_img" > -->
+            <!-- <image lazy-load src="/images/l_right.png" /> -->
+      <!-- </view> -->
+</view>
+<!--展示图书信息-->
+
+
+
+<view wx:for="{{booksArray}}" id="aBook+{{index}}" bindtap="toBook">
+  
+  <view>
+    <!-- 因为index从0开始，图片名从1开始 -->
+    <image src="https://serve.sirbook.top{{item.book_cover}}" id="head"></image>
+  </view>
+  
+  <view id="remark">
+    <view>
+      {{item.book_name}}
+    </view>
+    <view class="author">
+      作者：{{item.book_author}}
+    </view>
+    <view class="price">
+      <text>￥{{item.bookA_price}}</text>元
+    </view>
+  </view>
+</view>
+
+<!-- 回到顶部 -->
+<image src='/images/top.png' class='goTop' hidden='{{!floorstatus}}' bindtap="goTop"></image>

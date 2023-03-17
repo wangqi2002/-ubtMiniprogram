@@ -1,0 +1,14 @@
+<view class="user">
+  <view>您的姓名：{{realname}}</view>
+  <view>您的手机号：{{phone}}</view>
+  <view>您的地址：{{address}}</view>
+</view>
+
+<view class="goods">
+  <image class="img" src="https://serve.sirbook.top{{cover}}"></image>
+  <view class="title">{{bookname}}</view>
+  <view class="author">{{author}}</view>
+  <view class="price">￥{{price}}元</view>
+</view>
+
+<button class="btn" bindtap="buy">确认支付</button>

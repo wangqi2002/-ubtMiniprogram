@@ -1,0 +1,214 @@
+var app = getApp();
+Page({
+
+  /**
+   * 页面的初始数据
+   */
+  data: {
+    headImage:'',
+    user_nickname: '',
+    user_name: '',
+    phone: '',
+    address: '',
+  },
+
+  // 输入框输入事件
+  newNickName: function (e) {
+    this.setData({
+      user_nickname: e.detail.value
+    })
+  },
+  newUserName: function (e) {
+    this.setData({
+      user_name: e.detail.value
+    })
+  },
+  newPhone: function (e) {
+    this.setData({
+      phone: e.detail.value
+    })
+  },
+  newAddress: function (e) {
+    this.setData({
+      address: e.detail.value
+    })
+  },
+
+  // 从数据库获取用户信息
+  getUser: function () {
+    var user = app.globalData.weichat;
+    console.log("userdetail页面尝试根据微信号获取用户信息");
+    let that = this;
+    wx.request({
+      method: 'POST',
+      url: 'https://serve.sirbook.top/user/getUserInfo',
+      data: {
+        user_id: user
+      },
+      success: function (res) {
+        console.log("在userdetail页面根据微信号"+user+"获取用户信息成功");
+        console.log(res.data);
+        let resultArray = res.data;
+        that.setData({
+          // 查询结果赋给当前页面的data
+          headImage: resultArray[0].user_image,
+          user_nickname: resultArray[0].user_nickname,
+          user_name: resultArray[0].user_name,
+          phone: resultArray[0].user_telphone,
+          address: resultArray[0].user_loacation,
+        })
+      },
+      fail: function () {
+        console.log("根据微信号获取用户信息失败");
+      },
+    })
+  },
+  inputFile: function () {
+    console.log('点击了input');
+  },
+
+  changeImg: function () {
+    var weichat = app.globalData.weichat;
+    wx.chooseImage({
+      count: 1,
+      sizeType: ['original', 'compressed'],
+      sourceType: ['album', 'camera'],
+      success: (res) => {
+        const tempFilePaths = res.tempFilePaths[0]
+        // this.setData({
+        //     coverImg: tempFilePaths
+        // });
+        // this.coverImg = tempFilePaths;
+        wx.uploadFile({
+          url: 'https://serve.sirbook.top/user/avater/' + weichat, //服务器接口地址
+          filePath: tempFilePaths,
+          name: 'user_image',
+          success: function (res) {
+            console.log(res);
+          },
+          fail: function (e) {
+            console.log(e.stack);
+          }
+        })
+        // wx.showModal({
+        //   title: '修改成功',
+        //   // content: '该功能需要登录方可使用，是否马上去登录',
+        //   showCancel: false,
+        //   confirmText: "确定",
+        //   success(res) {
+        //     if (res.confirm) {
+        //       console.log('确定');
+        //           wx.switchTab({
+        //                 url: '../my/my',
+        //           })
+        //     }
+        //     else{
+        //       console.log('取消');
+        //     }
+        //   }
+        // })
+      }
+    })
+  },
+
+  // 修改用户信息
+  alterUser: function () {
+    // var user_id=app.globalData.user_id;
+    var user = app.globalData.weichat;
+    var newNickName = this.data.user_nickname;
+    var newUserName = this.data.user_name;
+    var newPhone = this.data.phone;
+    var newAddress = this.data.address;
+    wx.request({
+      method: 'POST',
+      url: 'https://serve.sirbook.top/user/updateNoHeadInfo',
+      data: {
+        // user_id:user_id,
+        user_nickname: newNickName,
+        user_name: newUserName,
+        user_telphone: newPhone,
+        user_loacation: newAddress,
+        user_weichat: user,
+      },
+      success: function (res) {
+        console.log("更新用户信息成功");
+        console.log(res.data);
+        let resultArray = res.data;
+        // that.setData({
+        // 查询结果赋给当前页面的data
+        // phone:resultArray[0].user_telphone,
+        // address:resultArray[0].user_loacation,
+        // })
+
+      },
+      fail: function () {
+        console.log("根据微信号获取用户信息失败");
+      },
+    })
+    wx.showModal({
+      title:'修改成功',
+      content:'请右上角重新进入小程序以刷新',
+      confirmText:'是',
+      showCancel:false,
+    })
+    // console.log("尝试向后端发送根据微信号获取用户信息请求失败");
+  },
+
+  /**
+   * 生命周期函数--监听页面加载
+   */
+  onLoad(options) {
+    console.log('到达userdetail页面');
+    console.log('app.globalData.weichat:'+app.globalData.weichat);
+    this.getUser();
+  },
+
+  /**
+   * 生命周期函数--监听页面初次渲染完成
+   */
+  onReady() {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面显示
+   */
+  onShow() {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面隐藏
+   */
+  onHide() {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面卸载
+   */
+  onUnload() {
+
+  },
+
+  /**
+   * 页面相关事件处理函数--监听用户下拉动作
+   */
+  onPullDownRefresh() {
+
+  },
+
+  /**
+   * 页面上拉触底事件的处理函数
+   */
+  onReachBottom() {
+
+  },
+
+  /**
+   * 用户点击右上角分享
+   */
+  onShareAppMessage() {
+
+  }
+})
