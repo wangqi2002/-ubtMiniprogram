@@ -1,0 +1,65 @@
+{
+  "pages": [
+    "pages/homepage/homepage",
+    "pages/buy/buy",
+    "pages/index/index",
+    "pages/enroll/enroll",
+    "pages/publish/publish",
+    "pages/my/my",
+    "pages/mybuy/mybuy",
+    "pages/mysell/mysell",
+    "pages/search/search",
+    "pages/detail/detail",
+    "pages/userdetail/userdetail",
+    "pages/help/help",
+    "pages/parse/parse",
+    "pages/kefu/kefu",
+    "pages/about/about",
+    "pages/sell/list/list",
+    "pages/recharge/recharge",
+    "pages/reflect/reflect",
+    "pages/testimage1/testimage1",
+    "pages/collect/collect"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#fbbd08",
+    "navigationBarTitleText": "二手书交易",
+    "navigationBarTextStyle": "black"
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json",
+  "tabBar": {
+    "color": "#707070",
+    "selectedColor": "#000000",
+    "list": [
+      {
+        "pagePath": "pages/homepage/homepage",
+        "text": "首页",
+        "iconPath": "/images/tabbar/home.png",
+        "selectedIconPath": "/images/tabbar/home_on.png"
+      },
+      {
+        "pagePath": "pages/publish/publish",
+        "text": "发布",
+        "iconPath": "/images/tabbar/publish.png",
+        "selectedIconPath": "/images/tabbar/publish_on.png"
+      },
+      {
+        "pagePath": "pages/my/my",
+        "text": "我的",
+        "iconPath": "/images/tabbar/my.png",
+        "selectedIconPath": "/images/tabbar/my_on.png"
+      }
+    ]
+  },
+  "usingComponents": {
+    "van-steps": "vant/steps/index",
+    "van-transition": "vant/transition/index",
+    "van-stepper": "vant/stepper/index",
+    "van-action-sheet": "vant/action-sheet/index",
+    "van-popup": "vant/popup/index",
+    "van-dialog": "vant/dialog/index"
+  },
+  "lazyCodeLoading": "requiredComponents"
+}
