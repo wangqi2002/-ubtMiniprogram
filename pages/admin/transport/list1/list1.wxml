@@ -1,0 +1,48 @@
+<!--pages/admin/transport/list1/list1.wxml-->
+<view class="tab_contain">
+  <block wx:for="{{tab}}" wx:key="id">
+    <view class="tab_one" bindtap="changeTab" data-id="{{index}}">
+      <view class="{{tabid==item.id?'tab_on':''}}">{{item.name}}</view>
+    </view>
+  </block>
+</view>
+<view class="search_box">
+  <image class="search_ico" src="/images/search.png" bindtap="search"></image>
+  <input class="search_text" placeholder="请输入用户昵称" bindconfirm="search" bindinput="searchValue" />
+</view>
+<view class="content">
+  <view class="card_box" wx:if="{{tabid==0}}">
+    <block wx:for="{{list_in_copy}}" wx:key="_id">
+      <view class="card_item" bindtap="detail_1" data-id="{{item._id}}">
+        <view class="item_left">
+          <view class="card_username">
+            用户昵称:{{item.orderinfo.username}}
+          </view>
+          <view class="card_address">
+            地址：{{item.orderinfo.address}}
+          </view>
+        </view>
+        <view class="item_right">
+          待收数量：{{item.orderinfo.number}}
+        </view>
+      </view>
+    </block>
+  </view>
+  <view class="card_box" wx:if="{{tabid==1}}">
+    <block wx:for="{{list_out_copy}}" wx:key="_id">
+      <view class="card_item" bindtap="detail_2" data-id="{{item._id}}">
+        <view class="item_left">
+          <view class="card_username">
+            用户昵称:{{item.orderinfo.username}}
+          </view>
+          <view class="card_address">
+            地址：{{item.orderinfo.address}}
+          </view>
+        </view>
+        <view class="item_right">
+          待送数量：{{item.orderinfo.number}}
+        </view>
+      </view>
+    </block>
+  </view>
+</view>

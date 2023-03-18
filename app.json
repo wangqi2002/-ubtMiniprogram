@@ -1,5 +1,7 @@
 {
   "pages": [
+    "pages/selectId/selectId",
+
     "pages/homepage/homepage",
     "pages/buy/buy",
     "pages/index/index",
@@ -19,7 +21,15 @@
     "pages/recharge/recharge",
     "pages/reflect/reflect",
     "pages/testimage1/testimage1",
-    "pages/collect/collect"
+    "pages/collect/collect",
+
+    "pages/admin/login/login",
+    "pages/admin/warehouse/list1/list1",
+    "pages/admin/warehouse/detail1/detail1",
+    "pages/admin/warehouse/detail2/detail2",
+    "pages/admin/transport/list1/list1",
+    "pages/admin/transport/about2/about2",
+    "pages/admin/transport/about1/about1"
   ],
   "window": {
     "backgroundTextStyle": "light",

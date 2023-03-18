@@ -1,0 +1,36 @@
+<!--pages/admin/warehouse/detail1/detail1.wxml-->
+<!--pages/warehouse/detail1/detail1.wxml-->
+<view class="card_box" wx:if="{{tabid==0}}">
+  <view class="header" bindtap="detail_1" data-id="{{list._id}}">
+    <view class="item_left">
+      <view class="card_username">
+        用户昵称:{{list.orderinfo.username}}
+      </view>
+
+    </view>
+    <view class="item_right">
+      数量：{{list.orderinfo.number}}
+    </view>
+  </view>
+</view>
+<view class="input_box">
+  <input class="input_text" placeholder="请输入存放位置" value="{{isInput?LocationOfstorage:''}}" bindinput="locationValue" disabled="{{isInput}}" />
+  <button class="{{isShow?'confirmed':'changed'}}" bindtap="handLocation">{{isShow?'确认位置':'修改位置'}}</button>
+</view>
+<view class="card_box" wx:if="{{detaillist.length>0}}">
+  <block wx:for="{{detaillist}}" wx:key="_id">
+    <view class="card_item" bindtap="handConfirm" data-id="{{item._id}}">
+      <view class="item_left_1">
+        <view class="card_username">
+          订单编号:{{item.orderinfo.ordernumber}}
+        </view>
+        <view class="card_address">
+          书名：{{item.orderinfo.bookname}}
+        </view>
+      </view>
+      <view class="item_right_1">
+        日期：{{item.orderinfo.date}}
+      </view>
+    </view>
+  </block>
+</view>

@@ -1,0 +1,36 @@
+<!--pages/admin/transport/about1/about1.wxml-->
+<view class="card_box" wx:if="{{tabid==0}}">
+    <view class="header" data-id="{{list._id}}">
+        <view class="item_left">
+            <view class="card_username">
+                用户昵称:{{list.orderinfo.username}}
+            </view>
+            <view class="card_address">
+                地址：{{list.orderinfo.address}}
+            </view>
+        </view>
+        <view class="item_right">
+            数量：{{list.orderinfo.number}}
+        </view>
+    </view>
+</view>
+<view class="center_1">
+    <image src="/images/scan.png"></image>
+</view>
+<view class="card_box" wx:if="{{detaillist.length>0}}">
+    <block wx:for="{{detaillist}}" wx:key="_id">
+        <view class="card_item" bindtap="handConfirm" bindlongpress="handMiss" data-id="{{item._id}}">
+            <view class="item_left_1">
+                <view class="card_username">
+                    订单编号:{{item.orderinfo.ordernumber}}
+                </view>
+                <view class="card_address">
+                    书名：{{item.orderinfo.bookname}}
+                </view>
+            </view>
+            <view class="item_right_1">
+                日期：{{item.orderinfo.date}}
+            </view>
+        </view>
+    </block>
+</view>

@@ -37,7 +37,7 @@
 
 
 <block wx:if="{{list.length>10}}">
-      <import src="/common.wxml" />
+      <!-- <import src="/common.wxml" /> -->
       <template is="loadmore" data="{{nomore}}" />
 </block>
 <van-transition show="{{ scrollTop>500 }}" custom-class="block" duration="600">

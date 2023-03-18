@@ -1,0 +1,37 @@
+<!--pages/admin/warehouse/detail2/detail2.wxml-->
+
+<view class="card_box" wx:if="{{tabid==0}}">
+  <view class="header" bindtap="detail_1" data-id="{{list._id}}">
+    <view class="item_left">
+      <view class="card_username">
+        用户昵称:{{list.orderinfo.username}}
+      </view>
+    </view>
+    <view class="item_right">
+      数量：{{list.orderinfo.number}}
+    </view>
+  </view>
+</view>
+<view class="card_box" wx:if="{{detaillist.length>0}}">
+  <block wx:for="{{detaillist}}" wx:key="_id">
+    <view class="card_item" bindtap="handConfirm" data-id="{{item._id}}">
+      <view class="item_left_1">
+        <view class="card_username">
+          订单编号:
+          <p>{{item.orderinfo.ordernumber}}</p>
+        </view>
+        <view class="card_address">
+          书名：{{item.orderinfo.bookname}}
+        </view>
+      </view>
+      <view class="item_right_1">
+        <view class="card_username">
+          日期：{{item.orderinfo.date}}
+        </view>
+        <view class="card_address">
+          位置：{{item.orderinfo.address}}
+        </view>
+      </view>
+    </view>
+  </block>
+</view>

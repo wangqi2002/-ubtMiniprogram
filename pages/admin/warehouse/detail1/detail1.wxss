@@ -1,0 +1,139 @@
+/* pages/admin/warehouse/detail1/detail1.wxss */
+/* pages/warehouse/detail1/detail1.wxss */
+
+.card_box {
+  width: 100%;
+  display: flex;
+  box-sizing: border-box;
+  padding: 10rpx 0rpx;
+  flex-wrap: wrap;
+}
+
+.header {
+  margin: 10rpx auto;
+  width: 90%;
+  padding: 20rpx;
+  border-radius: 20rpx;
+  border: 1rpx solid grey;
+  font-family: cursive;
+  display: flex;
+  box-sizing: border-box;
+  flex-direction: row;
+  background-color: beige;
+}
+
+.input_box {
+  margin: 10rpx auto;
+  font-family: cursive;
+  width: 670rpx;
+  height: 66rpx;
+  background: #fff;
+  display: flex;
+  align-items: center;
+}
+
+.input_text {
+  width: 450rpx;
+  height: 60rpx;
+  border-radius: 15rpx;
+  border: 1rpx solid grey;
+  padding-left: 10rpx;
+  font-size: 28rpx;
+  letter-spacing: 2rpx;
+  color: #A7A7A7;
+}
+
+.confirmed {
+  width: 200rpx;
+  height: 60rpx;
+  float: left;
+  margin-left: 20rpx;
+  font-size: 28rpx;
+  background-color: #00B26A;
+}
+
+.changed {
+  width: 200rpx;
+  height: 60rpx;
+  float: left;
+  margin-left: 20rpx;
+  font-size: 28rpx;
+  background-color: #FFD867;
+}
+
+.card_item {
+  margin: 10rpx auto;
+  width: 90%;
+  padding: 20rpx;
+  border-radius: 20rpx;
+  border: 1rpx solid grey;
+  font-family: cursive;
+  display: flex;
+  box-sizing: border-box;
+  flex-direction: row;
+}
+
+.item_right {
+  width: 30%;
+  font-size: 35rpx;
+  line-height: 45rpx;
+  margin-right: 0rpx;
+}
+
+.item_left {
+  display: flex;
+  flex-direction: column;
+  width: 70%;
+}
+
+.card_username {
+  width: 100%;
+  font-size: 35rpx;
+  line-height: 45rpx;
+}
+
+.card_address {
+  width: 100%;
+  font-size: 35rpx;
+  line-height: 45rpx;
+}
+
+.center_box {
+  width: 100%;
+  padding: 20rpx 0;
+  height: 200rpx;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  box-sizing: border-box;
+}
+
+.center_1 {
+  width: 160rpx;
+  height: 180rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 10rpx auto;
+}
+
+
+.center_1 image {
+  width: 160rpx;
+  height: 180rpx;
+}
+
+.item_right_1 {
+  width: 40%;
+  font-size: 30rpx;
+  line-height: 30rpx;
+  margin-right: 0rpx;
+  margin-top: 50rpx;
+}
+
+.item_left_1 {
+  display: flex;
+  flex-direction: column;
+  width: 60%;
+}

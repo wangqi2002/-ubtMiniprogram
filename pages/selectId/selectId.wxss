@@ -1,0 +1,43 @@
+/* pages/selectId/selectId.wxss */
+page {
+  height: 100%;
+}
+.iconbox{
+  text-align: center;
+}
+
+.icon{
+  width: 300rpx;
+  height: 300rpx;
+  margin: 100rpx auto;
+}
+
+.box {
+  height: 100%;
+}
+
+button {
+  height: 45px;
+  width: 80%;
+  margin: 80rpx auto;
+  background-color: burlywood;
+  color: white;
+  border-radius: 98rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.btnImg {
+  margin-top: 5rpx;
+  margin-right: 15rpx;
+  width: 50rpx;
+  height: 50rpx;
+}
+
+button::after {
+  border-radius: 98rpx;
+  background-color: burlywood;
+  border: 0;
+}
