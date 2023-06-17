@@ -7,11 +7,11 @@
 </view>
 
 <!-- 查询结果 -->
-<view wx:for="{{booksArray}}" id="aBook+{{index}}" bindtap="toBook">
+<view wx:for="{{booksArray}}" wx:key="index" id="aBook+{{index}}" bindtap="toBook">
 
   <view>
     <!-- 因为index从0开始，图片名从1开始 -->
-    <image src="https://serve.sirbook.top{{item.book_cover}}" id="head"></image>
+    <image src="{{baseUrl}}{{item.book_cover}}" id="head"></image>
   </view>
   
   <view id="remark">

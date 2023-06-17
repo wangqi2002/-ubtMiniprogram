@@ -1,4 +1,5 @@
-// pages/admin/transport/about1/about1.js
+// pages/transport/about1/about1.js
+const app = getApp()
 const util = require('../../../../utils/util');
 Page({
 
@@ -43,7 +44,7 @@ Page({
                 const {
                   data: res1
                 } = await wx.p.request({
-                  url: 'https://serve.sirbook.top/sellerorder/' + orderId,
+                  url: app.globalData.baseUrl + '/sellerorder/' + orderId,
                   data: {
                     sellerorder_status: 1
                   },
@@ -55,7 +56,7 @@ Page({
                 const {
                   data: res2
                 } = await wx.p.request({
-                  url: 'https://serve.sirbook.top/bookabout/state/' + bookId,
+                  url: app.globalData.baseUrl + '/bookabout/state/' + bookId,
                   data: {
                     bookA_state: 1
                   },
@@ -90,7 +91,7 @@ Page({
           const {
             data: res1
           } = await wx.p.request({
-            url: 'https://serve.sirbook.top/sellerorder/' + orderId,
+            url: app.globalData.baseUrl + '/sellerorder/' + orderId,
             data: {
               sellerorder_status: 1
             },
@@ -102,7 +103,7 @@ Page({
           const {
             data: res2
           } = await wx.p.request({
-            url: 'https://serve.sirbook.top/bookabout/state/' + bookId,
+            url: app.globalData.baseUrl + '/bookabout/state/' + bookId,
             data: {
               bookA_state: 1
             },
@@ -132,7 +133,7 @@ Page({
           const {
             data: res
           } = await wx.p.request({
-            url: 'https://serve.sirbook.top/sellerorder/' + orderId,
+            url: app.globalData.baseUrl + '/sellerorder/' + orderId,
             data: {
               sellerorder_status: 3
             },
@@ -158,20 +159,21 @@ Page({
     const eventChannel = this.getOpenerEventChannel();
     // 监听acceptDataFromOpenerPage事件，获取上一页面通过eventChannel传送到当前页面的数据
     eventChannel.on('acceptDataFromOpenerPage', async function (data) {
-      // console.log("+++++", data)
+      console.log("+++++", data)
       let detaillist = [];
       for (let i = 0; i < data.orderList.orderList.length; i++) {
         // console.log(data.orderList.orderList[i].sellerorder_book_isbn);
         const {
           data: res
         } = await wx.p.request({
-          url: 'https://serve.sirbook.top/book/getIsbn/' + data.orderList.orderList[i].sellerorder_book_isbn,
+          url: app.globalData.baseUrl + '/book/getIsbn/' + data.orderList.orderList[i].sellerorder_book_isbn,
           data: {},
           method: "GET",
           header: {
             "Content-Type": "application/json"
           }
         })
+        console.log(res)
         detaillist.push({
           _id: i,
           orderinfo: {

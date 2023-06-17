@@ -1,13 +1,12 @@
 // const db = wx.cloud.database();
 const app = getApp();
- const config = require("../../config.js");
+const config = require("../../config.js");
 Page({
   data: {
-    bookinfo:{
-
+    bookinfo: {
     },
     // bookA_image:[],
-    bookA_id:'',
+    bookA_id: '',
     imgs: [],
     //book_cover: '',
     //systeminfo: app.systeminfo,
@@ -17,114 +16,116 @@ Page({
     }, //进入褪出动画时长
     college: JSON.parse(config.data).college.splice(1),
     steps: [{
-        text: '步骤一',
-        desc: '扫描isbn码'
-      },
-      {
-        text: '步骤二',
-        desc: '补充图书信息'
-      },
-      {
-        text: '步骤三',
-        desc: '上传商品图片'
-      },
-      {
-        text: '步骤四',
-        desc: '发布成功'
-      },
+      text: '步骤一',
+      desc: '扫描isbn码'
+    },
+    {
+      text: '步骤二',
+      desc: '补充图书信息'
+    },
+    {
+      text: '步骤三',
+      desc: '上传商品图片'
+    },
+    {
+      text: '步骤四',
+      desc: '发布成功'
+    },
     ],
+    baseUrl: '',
+    user_id: ''
   },
 
   // 复制自testimage
   // 上传图片
   chooseImg: function (e) {
-    var bookA_id=this.data.bookA_id;
-   var that = this;
-   var imgs = this.data.imgs;
-   if (imgs.length >= 9) {
-    this.setData({
-     lenMore: 1
-    });
-    setTimeout(function () {
-     that.setData({
-      lenMore: 0
-     });
-    }, 2500);
-    return false;
-   }
-   console.log('向该本书插入图片:'+bookA_id);
-   wx.chooseImage({
-    // count: 1, // 默认9
-    sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
-    sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
-    success: function (res) {
-     // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
-     var tempFilePaths = res.tempFilePaths;
-     var imgs = that.data.imgs;
-     // console.log(tempFilePaths + '----');
-     for (var i = 0; i < tempFilePaths.length; i++) {
-      if (imgs.length >= 9) {
-       that.setData({
-        imgs: imgs
-       });
-       return false;
-      } else {
-       imgs.push(tempFilePaths[i]);
-      }
-      console.log('要插入的图片为：'+tempFilePaths[i]);
-      wx.uploadFile({
-       url: 'https://serve.sirbook.top/bookabout/avator/' + bookA_id, //服务器接口地址
-       filePath: tempFilePaths[i],
-       name: 'bookA_image',
-       formData: {
-           'user': 'test'
-       },
-       success (res){
-           console.log(res);
-           const data = res.data
-           //do something
-           console.log('uploadfile成功');
-       }
-   })
-     }
-     console.log(tempFilePaths);
-     that.setData({
-      imgs: imgs
-     });
+    var bookA_id = this.data.bookA_id;
+    var that = this;
+    var imgs = this.data.imgs;
+    if (imgs.length >= 9) {
+      this.setData({
+        lenMore: 1
+      });
+      setTimeout(function () {
+        that.setData({
+          lenMore: 0
+        });
+      }, 2500);
+      return false;
     }
-   });
+    console.log('向该本书插入图片:' + bookA_id);
+    wx.chooseImage({
+      // count: 1, // 默认9
+      sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
+      sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
+      success: function (res) {
+        // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
+        var tempFilePaths = res.tempFilePaths;
+        var imgs = that.data.imgs;
+        // console.log(tempFilePaths + '----');
+        for (var i = 0; i < tempFilePaths.length; i++) {
+          if (imgs.length >= 9) {
+            that.setData({
+              imgs: imgs
+            });
+            return false;
+          } else {
+            imgs.push(tempFilePaths[i]);
+          }
+          console.log('要插入的图片为：' + tempFilePaths[i]);
+          wx.uploadFile({
+            url: app.globalData.baseUrl + '/bookabout/avator/' + bookA_id, //服务器接口地址
+            filePath: tempFilePaths[i],
+            name: 'bookA_image',
+            formData: {
+              'user': 'test'
+            },
+            success(res) {
+              console.log(res);
+              const data = res.data
+              //do something
+              console.log('uploadfile成功');
+            }
+          })
+        }
+        console.log(tempFilePaths);
+        that.setData({
+          imgs: imgs
+        });
+      }
+    });
   },
   // 删除图片
   deleteImg: function (e) {
-   var imgs = this.data.imgs;
-   var index = e.currentTarget.dataset.index;
-   imgs.splice(index, 1);
-   this.setData({
-    imgs: imgs
-   });
+    var imgs = this.data.imgs;
+    var index = e.currentTarget.dataset.index;
+    imgs.splice(index, 1);
+    this.setData({
+      imgs: imgs
+    });
   },
   // 预览图片
   previewImg: function (e) {
     //获取当前图片的下标
-   var index = e.currentTarget.dataset.index;
+    var index = e.currentTarget.dataset.index;
     //所有图片
-   var imgs = this.data.imgs;
-   wx.previewImage({
-    //当前显示图片
-    current: imgs[index],
-    //所有图片
-    urls: imgs
-   })
+    var imgs = this.data.imgs;
+    wx.previewImage({
+      //当前显示图片
+      current: imgs[index],
+      //所有图片
+      urls: imgs
+    })
   },
 
-  btn:function(){
+  btn: function () {
     console.log(this.data.imgs)
   },
 
-  login:function(){
+  login: function () {
     wx.cloud.callFunction({
-      name:"getOpenid",
-      success:function(res){
+      name: "getOpenid",
+      success: function (res) {
         console.log(res.result.openid)
       }
     })
@@ -159,8 +160,8 @@ Page({
       }],
     })
   },
-  checkLogin:function(){
-    if(!this.data.weichat){
+  checkLogin: function () {
+    if (!this.data.weichat) {
       wx.showModal({
         title: '温馨提示',
         content: '该功能需要登录方可使用，是否马上去登录',
@@ -169,11 +170,11 @@ Page({
         success(res) {
           if (res.confirm) {
             console.log('确定');
-                wx.switchTab({
-                      url: '../my/my',
-                })
+            wx.switchTab({
+              url: '../my/my',
+            })
           }
-          else{
+          else {
             console.log('取消');
           }
         }
@@ -183,8 +184,18 @@ Page({
   },
   onLoad() {
     this.initial();
-    this.data.weichat=app.globalData.weichat;
+    this.data.weichat = app.globalData.weichat;
     this.checkLogin();
+  },
+  /**
+   * 生命周期函数--监听页面显示
+   */
+  onShow() {
+    this.setData({
+      baseUrl: app.globalData.baseUrl,
+      user_id: app.globalData.user_id,
+      place: app.globalData.address
+    })
   },
   //手动输入isbn
   isbnInput(e) {
@@ -216,7 +227,7 @@ Page({
   confirm() {
     let id = new Date().getTime() + Math.random().toString(36).substring(4, 9);
     this.setData({
-      bookA_id:id
+      bookA_id: id
     })
     let that = this;
     let isbn = that.data.isbn;
@@ -228,62 +239,71 @@ Page({
       return false;
     }
     that.addbooks(isbn);
-  // }
+    // }
   },
   //添加书籍信息到数据库
   addbooks(bn) {
     let that = this;
-    
+
     wx.request({
-      url: 'https://serve.sirbook.top/book/getIsbn/'+bn, 
-      data: {
-        // isbn: 'bn',
-      },
+      url: app.globalData.baseUrl + '/book/getIsbn/' + bn,
       header: {
-        'content-type': 'application/json' // 默认值9787121302954
+        'content-type': 'application/json'
       },
       success(res) {
         console.log(res.data.book)
-       // photoUrl(res.data.book.book_cover)
         wx.request({
-          url: 'https://serve.sirbook.top/book/',
-          method:'POST',
-          data:{
-            book_isbn:res.data.book.book_isbn,
-            book_name:res.data.book.book_name,
-            book_author:res.data.book.book_author,
-            book_press:res.data.book.book_press,
-            book_publication_time:res.data.book.book_publication_time,
-            book_framing:res.data.book.book_framing,
-            book_publication_price:res.data.book.book_publication_price,
-            book_cover:res.data.book.book_cover,
-            book_abstract:res.data.book.book_abstract,
+          url: app.globalData.baseUrl + '/book/',
+          method: 'POST',
+          data: {
+            book_isbn: res.data.book.book_isbn,
+            book_name: res.data.book.book_name,
+            book_author: res.data.book.book_author,
+            book_press: res.data.book.book_press,
+            book_publication_time: res.data.book.book_publication_time,
+            book_framing: res.data.book.book_framing,
+            book_publication_price: res.data.book.book_publication_price,
+            book_cover: res.data.book.book_cover,
+            book_abstract: res.data.book.book_abstract,
           },
           header: {
-           "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8"     /*更改头部*/
+            "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8"     /*更改头部*/
           },
-          success(res){
+          success(res) {
             console.log(res)
+          },
+          fail(err) {
+            console.log(err)
           }
         })
         wx.hideLoading();
-        that.setData({
-          bookinfo: res.data.book,
-         // book_cover: photoUrl(res.data.book.book_cover),
-          show_a: false,
-          show_b: true,
-          show_c: false,
-          show_d: false,
-          active: 1,
-        })
+        if (!res.data.book.book_cover.includes("bookCover")) {
+          that.setData({
+            bookinfo: res.data.book,
+            show_a: false,
+            show_b: true,
+            show_c: false,
+            show_d: false,
+            active: 1,
+          })
+        } else {
+          const newBook = res.data.book;
+          newBook.book_cover = that.data.baseUrl + newBook.book_cover
+          console.log(newBook)
+          that.setData({
+            bookinfo: newBook,
+            show_a: false,
+            show_b: true,
+            show_c: false,
+            show_d: false,
+            active: 1,
+          })
+        }
+      },
+      fail(err) {
+        console.log(err)
       }
-      // fail: err => {
-      //               console.error(err)
-      //         }
     })
-    
-    //       
-    // })
   },
 
   //价格输入改变
@@ -307,7 +327,7 @@ Page({
     for (let i = 0; i < kind.length; i++) {
       kind[i].check = false
     }
-    kind[id].check = true;                                                                                                                                                  
+    kind[id].check = true;
     if (id == 1) {
       that.setData({
         kind: kind,
@@ -376,17 +396,12 @@ Page({
   },
   //正式发布
   publish() {
-    
     let that = this;
-    // 订单号
-    // let id = new Date().getTime() + Math.random().toString(36).substring(4, 9);
     var id = this.data.bookA_id;
-    var sellerid=app.globalData.user_id;
-    var seller_nickname=app.globalData.user_nickname;
-    var address=app.globalData.address;
-    console.log('向bookabout表插入新书的id：'+id);
-    console.log(that.data.college);
-    console.log(that.data.cids);
+    var sellerid = app.globalData.user_id;
+    var seller_nickname = app.globalData.user_nickname;
+    var address = this.data.place
+    console.log('向bookabout表插入新书的id：' + id);
     wx.showModal({
       title: '温馨提示',
       content: '经检测您填写的信息无误，是否马上发布？',
@@ -394,15 +409,15 @@ Page({
         if (res.confirm) {
           //向bookabout表插入
           wx.request({
-            url: 'https://serve.sirbook.top/bookabout',
-            method:'POST',
+            url: app.globalData.baseUrl + '/bookabout/addW',
+            method: 'POST',
             data: {
-              bookA_id:id,
-              bookA_isbn:that.data.isbn,
-              bookA_old_degree:that.data.notes,
-              bookA_price:that.data.price,
-              bookA_stand:seller_nickname,
-              bookA_kind:that.data.college[that.data.cids].name
+              bookA_id: id,
+              bookA_isbn: that.data.isbn,
+              bookA_old_degree: that.data.notes,
+              bookA_price: that.data.price,
+              bookA_stand: that.data.user_id,
+              bookA_kind: that.data.college[that.data.cids].name
             },
             success(e) {
               console.log('向bookabout表插入成功')
@@ -421,14 +436,13 @@ Page({
           })
           //向sellerorder表插入
           wx.request({
-            url: 'https://serve.sirbook.top/sellerorder',
-            method:'POST',
+            url: app.globalData.baseUrl + '/sellerorder',
+            method: 'POST',
             data: {
-              sellerorder_id:id,
-              sellerorder_sellerid:sellerid,
-              sellerorder_book_isbn:that.data.isbn,
-              // sellerorder_date
-              sellerorder_address:address,
+              sellerorder_bookid: id,
+              sellerorder_sellerid: sellerid,
+              sellerorder_book_isbn: that.data.isbn,
+              sellerorder_address: address,
             },
             success(e) {
               console.log('向sellerorder表插入成功')
@@ -436,7 +450,7 @@ Page({
                 show_a: false,
                 show_b: false,
                 show_c: true,
-                show_d:false,
+                show_d: false,
                 active: 2,
                 detail_id: e._id
               });
@@ -456,7 +470,7 @@ Page({
       url: '/pages/detail/detail?scene=' + that.data.detail_id,
     })
   },
-  next(){
+  next() {
     var that = this;
     wx.showModal({
       title: '温馨提示',
@@ -473,8 +487,8 @@ Page({
         wx.pageScrollTo({
           scrollTop: 0,
         })
-            }
+      }
     })
-    
+
   }
 })

@@ -24,7 +24,7 @@
       <view class="b_contain">
             <view class="b_top">
                   <view class="b_poster">
-                        <image src="https://serve.sirbook.top{{bookinfo.book_cover}}" />
+                        <image src="{{bookinfo.book_cover}}" />
                   </view>
                   <view class="b_content">
                         <view class="b_title text-cut">{{bookinfo.book_name}}</view>

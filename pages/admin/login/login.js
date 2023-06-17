@@ -1,6 +1,5 @@
 // pages/admin/login/login.js
-var app = getApp()
-
+const app = getApp()
 Page({
 
   /**
@@ -29,17 +28,16 @@ Page({
       })
     } else {
       await wx.p.request({
-        url: 'https://serve.sirbook.top/login/adminLogin',
+        url: app.globalData.baseUrl + '/login/adminLogin',
         data: {
           admin_account: that.data.loginname,
-          admin_password: that.data.loginname,
+          admin_password: that.data.password,
         },
         method: "POST",
         header: {
           "Content-Type": "application/json"
         },
         success: function (res) {
-          // console.log(res.data.data);
           const {
             admin_account,
             admin_name,
@@ -53,12 +51,12 @@ Page({
           switch (res.data.data.admin_permission) {
             case 2:
               wx.redirectTo({
-                url: '/pages/transport/list1/list1',
+                url: '/pages/admin/transport/list1/list1',
               });
               break;
             case 3:
               wx.redirectTo({
-                url: "/pages/warehouse/list1/list1",
+                url: "/pages/admin/warehouse/list1/list1",
               });
               break;
             default:

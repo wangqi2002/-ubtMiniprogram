@@ -1,5 +1,6 @@
 // pages/admin/transport/about2/about2.js
 const util = require('../../../../utils/util');
+const app = getApp()
 Page({
 
   /**
@@ -34,7 +35,7 @@ Page({
           const {
             data: res1
           } = await wx.p.request({
-            url: 'https://serve.sirbook.top/buyerorder/' + orderId,
+            url: app.globalData.baseUrl + '/buyerorder/' + orderId,
             data: {
               buyerorder_status: 2
             },
@@ -46,7 +47,7 @@ Page({
           const {
             data: res2
           } = await wx.p.request({
-            url: 'https://serve.sirbook.top/bookabout/state/' + bookId,
+            url: app.globalData.baseUrl + '/bookabout/state/' + bookId,
             data: {
               bookA_state: 5
             },
@@ -76,7 +77,7 @@ Page({
           const {
             data: res
           } = await wx.p.request({
-            url: 'https://serve.sirbook.top/buyerorder/' + orderId,
+            url: app.globalData.baseUrl + '/buyerorder/' + orderId,
             data: {
               buyerorder_status: 3
             },
@@ -109,7 +110,7 @@ Page({
         const {
           data: res
         } = await wx.p.request({
-          url: 'https://serve.sirbook.top/book/getbook/' + data.orderList.orderList[i].buyerorder_bookid,
+          url: app.globalData.baseUrl + '/book/getbook/' + data.orderList.orderList[i].buyerorder_bookid,
           data: {},
           method: "GET",
           header: {

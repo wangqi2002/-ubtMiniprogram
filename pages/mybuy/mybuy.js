@@ -1,5 +1,5 @@
 // pages/mybuy/mybuy.js
-var app = getApp()
+const app = getApp()
 Page({
 
   /**
@@ -9,7 +9,7 @@ Page({
     // 接收从my页面传来的用户code
     user_id:'',
     buyerOrderArray:[],
-    
+    baseUrl:''
   },
 
   // 根据用户code查其买的书
@@ -18,14 +18,27 @@ Page({
     let that = this;
     wx.request({
       method: 'GET',
-      url: 'https://serve.sirbook.top/buyerorder/buyer_id/'+this.data.user_id,
+      url: app.globalData.baseUrl+'/buyerorder/buyer_id/'+this.data.user_id,
       success: function (res) {
         console.log("根据用户code查其买的书成功");
-        console.log(res.data);
-        let resultArray=res.data.results;
-        that.setData({
-          // 查询结果赋给当前页面的data
-          buyerOrderArray:resultArray,
+        res.data.results.forEach((item) => {
+          wx.request({
+            method: 'GET',
+            url: app.globalData.baseUrl + '/book/getbook/' + item.buyerorder_bookid,
+            data: {},
+            success: function (res) {
+              let orderItem = { ...item, ...res.data.book }
+              console.log(orderItem);
+              that.data.buyerOrderArray.push(orderItem)
+              let orderList = that.data.buyerOrderArray
+              that.setData({
+                buyerOrderArray: orderList,
+              })
+            },
+            fail: function (err) {
+              console.log(err);
+            },
+          })
         })
       },
       fail: function () {
@@ -43,7 +56,7 @@ Page({
     // 改buyerorder表
     wx.request({
       method: 'PUT',
-      url: 'https://serve.sirbook.top/buyerorder/'+id,
+      url: app.globalData.baseUrl+'/buyerorder/'+id,
       data: {
         buyerorder_trading_status:status,
         buyerorder_id:id
@@ -82,8 +95,6 @@ Page({
     console.log("要传递的buyerorder_id："+buyerorder_id);
     //在buyerorder表里把该书状态改成已收货
     this.updateOrder(2,buyerorder_id);
-    // let id = new Date().getTime() + Math.random().toString(36).substring(4, 9);
-    // console.log('订单号id:'+id);
   },
   //拒收
   refuse:function(e){
@@ -131,7 +142,9 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow() {
-
+    this.setData({
+      baseUrl: app.globalData.baseUrl
+    })
   },
 
   /**

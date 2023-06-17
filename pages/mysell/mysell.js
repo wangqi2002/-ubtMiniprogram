@@ -1,32 +1,44 @@
 // pages/mysell/mysell.js
-var app = getApp()
+const app = getApp()
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    user_id:'',
+    user_id: '',
     // 接收从sellerorder表查到的记录
-    sellerOrderArray:[],
-
+    sellerOrderArray: [],
+    baseUrl: ''
   },
 
-
   // 根据用户code查其卖的书
-  getBookFromSellerOrderBySellerId:function(){
+  getBookFromSellerOrderBySellerId: function () {
     console.log("尝试根据用户code查其卖的书");
     let that = this;
     wx.request({
       method: 'GET',
-      url: 'https://serve.sirbook.top/sellerorder/sellerid/'+this.data.user_id,
+      url: app.globalData.baseUrl + '/sellerorder/id/' + this.data.user_id,
       success: function (res) {
         console.log("根据用户code查其卖的书成功");
-        console.log(res.data);
-        let resultArray=res.data.results;
-        that.setData({
-          // 查询结果赋给当前页面的data
-          sellerOrderArray:resultArray,
+        res.data.results.forEach((item) => {
+          wx.request({
+            method: 'GET',
+            url: app.globalData.baseUrl + '/book/getIsbn/' + item.sellerorder_book_isbn,
+            data: {},
+            success: function (res) {
+              let orderItem = { ...item, ...res.data.book }
+              console.log(orderItem);
+              that.data.sellerOrderArray.push(orderItem)
+              let orderList = that.data.sellerOrderArray
+              that.setData({
+                sellerOrderArray: orderList,
+              })
+            },
+            fail: function (err) {
+              console.log(err);
+            },
+          })
         })
       },
       fail: function () {
@@ -40,8 +52,8 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
-    this.data.user_id=app.globalData.user_id
-    console.log('mysell页收到user_id:'+this.data.user_id);
+    this.data.user_id = app.globalData.user_id
+    console.log('mysell页收到user_id:' + this.data.user_id);
     this.getBookFromSellerOrderBySellerId();
   },
 
@@ -56,7 +68,9 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow() {
-
+    this.setData({
+      baseUrl: app.globalData.baseUrl
+    })
   },
 
   /**

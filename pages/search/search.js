@@ -1,12 +1,13 @@
 // pages/search/search.js
+const app = getApp()
 Page({
-
   /**
    * 页面的初始数据
    */
   data: {
     booknametosearch:'',
     booksArray:[],
+    baseUrl:''
   },
 
   // 输入框输入事件
@@ -27,7 +28,7 @@ Page({
     wx.request({
 
       method: 'GET',
-      url: 'https://serve.sirbook.top/bookabout/name/'+searchname,
+      url: app.globalData.baseUrl+'/bookabout/name/'+searchname,
 
       success: function (res) {
         console.log('查询结果');
@@ -79,7 +80,9 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow() {
-
+    this.setData({
+      baseUrl: app.globalData.baseUrl
+    })
   },
 
   /**

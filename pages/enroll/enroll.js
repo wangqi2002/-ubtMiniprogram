@@ -1,4 +1,5 @@
 // pages/enroll/enroll.js
+const app = getApp()
 Page({
 
     /**

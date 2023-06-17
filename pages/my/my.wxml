@@ -1,20 +1,17 @@
 <!--pages/my/my.wxml-->
 <view class="top_box">
-  <view wx:if="{{!weichat}}" class="top_1">
+  <view wx:if="{{weichat==''}}" class="top_1">
     <button bindtap="login">点击登录</button>
   </view>
-
   <view wx:else class="userInfo">
     <!-- 用户头像 -->
-    <view wx:if="{{headImage}}" class="userInfo">
-      <image id="userHead" bindtap="toUserDetail" src="https://serve.sirbook.top{{headImage}}"></image>
+    <view wx:if="{{headImage!=''}}" class="userInfo">
+      <image id="userHead" bindtap="toUserDetail" src="{{baseUrl}}{{headImage}}"></image>
     </view>
     <view wx:else class="userInfo">
       <image id="userHead" bindtap="toUserDetail" src="/images/avator.png"></image>
     </view>
-  <!-- 用户昵称 -->
-    <!-- <text>{{nickName}}</text> -->
-    <view wx:if="{{nickName}}" class="userNickName">
+    <view wx:if="{{nickName!=''}}" class="userNickName">
       <text>{{nickName}}</text>
     </view>
     <view wx:else class="userNickName">
@@ -24,7 +21,6 @@
 </view>
 
 <view class="center_box">
-<!-- <image src="/server/i"></image> -->
   <view class="center_1" bindtap="tomysell">
     <image src="/images/history.png"></image>
     <view>我的发布</view>
@@ -37,20 +33,9 @@
     <image src="/images/help.png"></image>
     <view>帮助中心</view>
   </view>
-  <!-- <view class="center_1" bindtap="go" data-go="/pages/bookcheck/bookcheck">
-    <image src="/images/check.png"></image>
-    <view>收书核验</view>
-  </view> -->
 </view>
 <view class="blank"></view>
 <view class="bottom_box">
-  <view class="bottom_card" bindtap="go" data-go="/pages/parse/parse" data-status="1">
-    <view class="bottom_1">
-      <image src="/images/parse.png"></image>
-      <view>我的钱包</view>
-    </view>
-    <image src="/images/go.png"></image>
-  </view>
   <view class="bottom_card" bindtap="tomycollect">
     <view class="bottom_1">
       <image src="/images/star.png"></image>
@@ -73,13 +58,6 @@
     <image src="/images/go.png"></image>
     <button open-type="feedback"></button>
   </view>
-  <view class="bottom_card" bindtap="showShare">
-    <view class="bottom_1">
-      <image src="/images/fen.png"></image>
-      <view>好用分享</view>
-    </view>
-    <image src="/images/go.png"></image>
-  </view>
   <view class="bottom_card" bindtap="loginOut">
     <view class="bottom_1">
       <image src="/images/quit.png"></image>
@@ -95,39 +73,3 @@
     <image src="/images/go.png"></image>
   </view>
 </view>
-
-<!--分享弹出层-->
-<van-popup show="{{ showShare }}" bind:close="closePop">
-  <view class="share_contain">
-    <view class="share_border"></view>
-    <view class="share_title">分享到</view>
-    <view class="share_box">
-      <view class="share_one">
-        <image src="/images/weixin.png"></image>
-        <view>微信好友</view>
-        <button class="share_button" open-type="share"></button>
-      </view>
-      <view class="share_bor"></view>
-      <view class="share_one">
-        <image src="/images/pyq.png"></image>
-        <view>朋友圈</view>
-        <button class="share_button" bindtap="preview" data-link="{{poster}}"></button>
-      </view>
-    </view>
-  </view>
-</van-popup>
-
-<!-- <view class="bottom">
-  <view class="center_1" bindtap="tohomepage" style="float: left; margin:0 20px;">
-    <image src="/images/tabbar/home.png"></image>
-    <view>首页</view>
-  </view>
-  <view class="center_1" bindtap="topublish" style="float: left; margin-left: 20px; margin-right: 40px;">
-    <image src="/images/tabbar/publish.png"></image>
-    <view>发布</view>
-  </view>
-  <view class="center_1">
-    <image src="/images/tabbar/my_on.png"></image>
-    <view>我的</view>
-  </view>
-</view> -->

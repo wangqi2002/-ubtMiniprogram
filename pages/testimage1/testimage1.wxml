@@ -1,3 +1,0 @@
-<!--pages/testimage1/testimage1.wxml-->
-<text>pages/testimage1/testimage1.wxml</text>
-<button bindtap="btn">按钮</button>

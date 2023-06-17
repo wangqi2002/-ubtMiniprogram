@@ -1,14 +1,14 @@
 <!--pages/selectId/selectId.wxml-->
 <view class="box">
   <view class="iconbox">
-    <image class="icon" src="https://serve.sirbook.top/images/loading2.gif"></image>
+    <image class="icon" src="{{baseUrl}}/images/loading2.gif"></image>
   </view>
   <button type="primary" bindtap="gotoCustomer">
-    <image class='btnImg' src="../../images/customer.png"></image>
+    <image class='btnImg' src="/images/customer.png"></image>
     <view>用户</view>
   </button>
   <button bindtap="gotoAdmin">
-    <image class='btnImg' src="../../images/admin.png"></image>
+    <image class='btnImg' src="/images/admin.png"></image>
     <view>管理员</view>
   </button>
 </view>

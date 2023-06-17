@@ -1,8 +1,6 @@
 // pages/detail/detail.js
-var app = getApp()
+const app = getApp()
 Page({
-
-
   /**
    * 页面的初始数据
    */
@@ -21,10 +19,11 @@ Page({
     seller: '',
     book_kind: '',
     cover: '',
-    bookA_image:'',
+    bookA_image: '',
     weichat: '',
-    user_id:'',
+    user_id: '',
     collect: '/images/collect.png',
+    baseUrl: ""
   },
 
   // 从books表获取书的信息
@@ -34,11 +33,8 @@ Page({
     console.log("当前书的id：" + bookA_id);
     let that = this;
     wx.request({
-      url: 'https://serve.sirbook.top/bookabout/id/' + bookA_id,
+      url: app.globalData.baseUrl + '/bookabout/id/' + bookA_id,
       success: function (res) {
-        console.log("查询成功");
-        // 查询记录条数
-        console.log(res.results);
         // 查询结果
         console.log(res.data);
         let resultArray = res.data.results;
@@ -58,7 +54,7 @@ Page({
           book_kind: resultArray[0].bookA_kind,
           cover: resultArray[0].book_cover,
           isbn: resultArray[0].book_isbn,
-          bookA_image:resultArray[0].bookA_image,
+          bookA_image: resultArray[0].bookA_image,
         })
       },
       fail: function () {
@@ -74,17 +70,24 @@ Page({
     var bookA_id = this.data.bookA_id;
     wx.request({
       method: 'POST',
-      url: 'https://serve.sirbook.top/user/getUserInfo',
+      url: app.globalData.baseUrl + '/user/getUserInfo',
       data: {
         user_id: user
       },
       success: function (res) {
-        haveCollected = res.data[0].user_collection;
-        console.log('已收藏：', haveCollected);
-        if (haveCollected.indexOf(bookA_id) != -1) {
-          that.setData({
-            collect: '/images/havecollected.png'
-          })
+        if (res.data.length) {
+          haveCollected = res.data[0].user_collection;
+        }
+        if (haveCollected != null && haveCollected != '') {
+          if (haveCollected.indexOf(bookA_id) != -1) {
+            that.setData({
+              collect: '/images/havecollected.png'
+            })
+          } else {
+            that.setData({
+              collect: '/images/collect.png'
+            })
+          }
         } else {
           that.setData({
             collect: '/images/collect.png'
@@ -97,8 +100,8 @@ Page({
     })
   },
 
-  remindLogin:function(){
-    if(!this.data.weichat){
+  remindLogin: function () {
+    if (!this.data.weichat) {
       wx.showModal({
         title: '温馨提示',
         content: '该功能需要登录方可使用，是否马上去登录',
@@ -107,11 +110,11 @@ Page({
         success(res) {
           if (res.confirm) {
             console.log('确定');
-                wx.switchTab({
-                      url: '../my/my',
-                })
+            wx.switchTab({
+              url: '../my/my',
+            })
           }
-          else{
+          else {
             console.log('取消');
           }
         }
@@ -131,13 +134,11 @@ Page({
     // console.log('当前用户id：'+user);
     wx.request({
       method: 'POST',
-      url: 'https://serve.sirbook.top/user/getUserInfo',
+      url: app.globalData.baseUrl + '/user/getUserInfo',
       data: {
         user_id: user
       },
       success: function (res) {
-        // console.log("按用户微信号从user表查该用户信息成功");
-        // console.log(res.data[0]);
         haveCollected = res.data[0].user_collection;
         console.log('已收藏：', haveCollected);
         if (haveCollected.indexOf(bookA_id) != -1) {
@@ -148,7 +149,7 @@ Page({
           console.log('最新收藏字段：', haveCollected);
           wx.request({
             method: 'POST',
-            url: 'https://serve.sirbook.top/user/collect',
+            url: app.globalData.baseUrl + '/user/collect',
             data: {
               user_collection: haveCollected,
               user_id: user,
@@ -170,7 +171,7 @@ Page({
           console.log('最新收藏字段：', haveCollected);
           wx.request({
             method: 'POST',
-            url: 'https://serve.sirbook.top/user/collect',
+            url: app.globalData.baseUrl + '/user/collect',
             data: {
               user_collection: haveCollected,
               user_id: user,
@@ -189,7 +190,7 @@ Page({
 
   buy: function () {
     // this.remindLogin();
-    if(!this.data.weichat){
+    if (!this.data.weichat) {
       wx.showModal({
         title: '温馨提示',
         content: '该功能需要登录方可使用，是否马上去登录',
@@ -198,11 +199,11 @@ Page({
         success(res) {
           if (res.confirm) {
             console.log('确定');
-                wx.switchTab({
-                      url: '../my/my',
-                })
+            wx.switchTab({
+              url: '../my/my',
+            })
           }
-          else{
+          else {
             console.log('取消');
           }
         }
@@ -232,7 +233,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
-    this.data.weichat=app.globalData.weichat;
+    this.data.weichat = app.globalData.weichat;
     // 从跳转源接收isbn号
     this.setData({
       bookA_id: options.bookA_id
@@ -284,9 +285,9 @@ Page({
         duration: 800
       });
       that.setData({
-          animationKefuData: animationKefuData.export(),
-        })
-        ++ii;
+        animationKefuData: animationKefuData.export(),
+      })
+      ++ii;
       // console.log(ii);
     }.bind(that), 1800);
   },
@@ -301,7 +302,9 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow() {
-
+    this.setData({
+      baseUrl: app.globalData.baseUrl
+    })
   },
 
   /**

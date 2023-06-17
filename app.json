@@ -14,13 +14,11 @@
     "pages/detail/detail",
     "pages/userdetail/userdetail",
     "pages/help/help",
-    "pages/parse/parse",
     "pages/kefu/kefu",
     "pages/about/about",
     "pages/sell/list/list",
     "pages/recharge/recharge",
     "pages/reflect/reflect",
-    "pages/testimage1/testimage1",
     "pages/collect/collect",
 
     "pages/admin/login/login",

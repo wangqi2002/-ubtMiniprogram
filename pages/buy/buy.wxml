@@ -5,7 +5,7 @@
 </view>
 
 <view class="goods">
-  <image class="img" src="https://serve.sirbook.top{{cover}}"></image>
+  <image class="img" src="{{baseUrl}}{{cover}}"></image>
   <view class="title">{{bookname}}</view>
   <view class="author">{{author}}</view>
   <view class="price">￥{{price}}元</view>

@@ -1,7 +1,6 @@
 // pages/admin/warehouse/list1/list1.js
-// pages/warehouse/list1/list1.js
+const app = getApp()
 Page({
-
   /**
    * 页面的初始数据
    */
@@ -76,7 +75,7 @@ Page({
       orderList: that.data.dataDetail_in[e.currentTarget.dataset.id]
     };
     wx.navigateTo({
-      url: '/pages/warehouse/detail1/detail1',
+      url: '/pages/admin/warehouse/detail1/detail1',
       events: {
         // 为指定事件添加一个监听器，获取被打开页面传送到当前页面的数据
         acceptDataFromOpenedPage: function (data) {
@@ -109,7 +108,7 @@ Page({
       orderList: that.data.dataDetail_out[e.currentTarget.dataset.id]
     };
     wx.navigateTo({
-      url: '/pages/warehouse/detail2/detail2',
+      url: '/pages/admin/warehouse/detail2/detail2',
       events: {
         // 为指定事件添加一个监听器，获取被打开页面传送到当前页面的数据
         acceptDataFromOpenedPage: function (data) {
@@ -139,7 +138,7 @@ Page({
   async onLoad(options) {
     let that = this;
     await wx.p.request({
-      url: 'https://serve.sirbook.top/sellerorder/link_sAn/1',
+      url: app.globalData.baseUrl + '/sellerorder/link_sAn/1',
       data: {},
       method: "GET",
       header: {
@@ -190,7 +189,7 @@ Page({
       }
     })
     await wx.p.request({
-      url: 'https://serve.sirbook.top/buyerorder/link_sAn/0',
+      url: app.globalData.baseUrl + '/buyerorder/link_sAn/0',
       data: {},
       method: "GET",
       header: {

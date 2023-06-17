@@ -1,5 +1,6 @@
-// pages/admin/warehouse/detail1/detail1.js// pages/warehouse/detail1/detail1.js
+// pages/admin/warehouse/detail1/detail1.js
 const util = require('../../../../utils/util');
+const app = getApp()
 Page({
 
   /**
@@ -53,7 +54,7 @@ Page({
             const {
               data: res1
             } = await wx.p.request({
-              url: 'https://serve.sirbook.top/sellerorder/' + orderId,
+              url: app.globalData.baseUrl + '/sellerorder/' + orderId,
               data: {
                 sellerorder_status: 2
               },
@@ -65,7 +66,7 @@ Page({
             const {
               data: res2
             } = await wx.p.request({
-              url: 'https://serve.sirbook.top/bookabout/state/' + bookId,
+              url: app.globalData.baseUrl + '/bookabout/state/' + bookId,
               data: {
                 bookA_state: 2
               },
@@ -77,7 +78,7 @@ Page({
             const {
               data: res3
             } = await wx.p.request({
-              url: 'https://serve.sirbook.top/bookstand',
+              url: app.globalData.baseUrl + '/bookstand',
               data: {
                 book_stand_id: userId,
                 book_stand_location: that.data.LocationOfstorage
@@ -114,8 +115,8 @@ Page({
       const {
         data: valueL
       } = await wx.p.request({
-        url: 'https://serve.sirbook.top/bookstand/' + data.orderList.orderList[0].sellerorder_sellerid,
-        // url: 'https://serve.sirbook.top/bookstand/16656593520174wx1inztq2b',
+        url: app.globalData.baseUrl + '/bookstand/' + data.orderList.orderList[0].sellerorder_sellerid,
+        // url: app.globalData.baseUrl + '/bookstand/16656593520174wx1inztq2b',
         data: {},
         method: "GET",
         header: {
@@ -135,7 +136,7 @@ Page({
         const {
           data: res
         } = await wx.p.request({
-          url: 'https://serve.sirbook.top/book/getIsbn/' + data.orderList.orderList[i].sellerorder_book_isbn,
+          url: app.globalData.baseUrl + '/book/getIsbn/' + data.orderList.orderList[i].sellerorder_book_isbn,
           data: {},
           method: "GET",
           header: {
